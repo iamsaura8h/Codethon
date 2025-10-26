@@ -1,3 +1,4 @@
+// AuthContext.tsx
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
@@ -10,22 +11,25 @@ interface User {
 interface AuthContextType {
   user: User | null;
   setUser: (user: User | null) => void;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/auth/me", { withCredentials: true })
       .then((res) => setUser(res.data.user))
-      .catch(() => setUser(null));
+      .catch(() => setUser(null))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

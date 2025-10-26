@@ -1,12 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/api/auth/logout", { credentials: "include" });
-    setUser(null);
+    try {
+      await fetch("http://localhost:5000/api/auth/logout", {
+        credentials: "include",
+      });
+      setUser(null);      // clear user in context
+      navigate("/");      // redirect to landing page
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
 
   return (

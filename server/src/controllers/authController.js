@@ -49,5 +49,6 @@ export const logoutUser = (req, res) => {
 };
 
 export const getUser = async (req, res) => {
-  res.json({ user: req.user });
+  if (!req.user) return res.json({ user: null });
+  res.json({ user: { name: req.user.name, email: req.user.email, avatar: req.user.avatar } });
 };

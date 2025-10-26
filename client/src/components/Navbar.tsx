@@ -10,8 +10,8 @@ const Navbar = () => {
       await fetch("http://localhost:5000/api/auth/logout", {
         credentials: "include",
       });
-      setUser(null);      // clear user in context
-      navigate("/");      // redirect to landing page
+      setUser(null);      // clear context
+      navigate("/");      // redirect landing page
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -23,19 +23,14 @@ const Navbar = () => {
       <div className="space-x-4">
         {user ? (
           <>
+            {user.avatar && <img src={user.avatar} alt="avatar" className="w-8 h-8 rounded-full inline-block mr-2" />}
             <span>{user.name}</span>
-            <button onClick={handleLogout} className="border border-black px-3 py-1">
-              Logout
-            </button>
+            <button onClick={handleLogout} className="border border-black px-3 py-1">Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login" className="border border-black px-3 py-1">
-              Login
-            </Link>
-            <Link to="/login" className="border border-black px-3 py-1">
-              Signup
-            </Link>
+            <Link to="/login" className="border border-black px-3 py-1">Login</Link>
+            <Link to="/login" className="border border-black px-3 py-1">Signup</Link>
           </>
         )}
       </div>

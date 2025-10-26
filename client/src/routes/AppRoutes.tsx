@@ -1,4 +1,3 @@
-// AppRoutes.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import LoginPage from "../pages/LoginPage";
@@ -8,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 const AppRoutes = () => {
   const { user, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>; // wait for auth check
+  if (loading) return <div>Loading...</div>; // wait for backend check
 
   return (
     <Routes>

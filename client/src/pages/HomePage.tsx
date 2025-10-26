@@ -1,5 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+
 const HomePage = () => {
   const { user } = useAuth();
 

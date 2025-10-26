@@ -1,34 +1,38 @@
-import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export const Navbar = () => {
-  const { user, logout } = useAuth();
+const Navbar = () => {
+  const { user, setUser } = useAuth();
+
+  const handleLogout = async () => {
+    await fetch("http://localhost:5000/api/auth/logout", { credentials: "include" });
+    setUser(null);
+  };
 
   return (
-    <nav className="p-4 bg-gray-200 flex justify-between">
-      <div>
-        <Link to="/" className="font-bold">your brand name</Link>
-      </div>
-      <div>
+    <nav className="flex justify-between items-center px-8 py-4 border-b border-black">
+      <div className="text-xl font-semibold">MyHackApp</div>
+      <div className="space-x-4">
         {user ? (
           <>
-            <span className="mr-4">Hello, {user.username}</span>
-            <button
-              onClick={logout}
-              className="bg-red-500 text-white px-2 py-1 rounded"
-            >
+            <span>{user.name}</span>
+            <button onClick={handleLogout} className="border border-black px-3 py-1">
               Logout
             </button>
           </>
         ) : (
-          <Link
-            to="/login"
-            className="bg-blue-500 text-white px-2 py-1 rounded"
-          >
-            Login
-          </Link>
+          <>
+            <Link to="/login" className="border border-black px-3 py-1">
+              Login
+            </Link>
+            <Link to="/login" className="border border-black px-3 py-1">
+              Signup
+            </Link>
+          </>
         )}
       </div>
     </nav>
   );
 };
+
+export default Navbar;

@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <nav className="flex justify-between items-center px-8 py-4 border-b border-black">
-      <div className="text-xl font-semibold">MyHackApp</div>
+      <div className="text-xl font-semibold">CodeAuth</div>
       <div className="space-x-4">
         {user ? (
           <>
